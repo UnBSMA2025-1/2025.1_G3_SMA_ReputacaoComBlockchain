@@ -1,31 +1,24 @@
-# RepositorioTemplate
-Esse repositório é para ser utilizado pelos grupos como um template inicial, da home page do Projeto.
-As seções do Template NÃO DEVEM SER OMITIDAS, sendo TODAS RELEVANTES.
 
-**!! *Atenção: Renomeie o seu repositório para (Ano.Semestre)_(Grupo)_SMA_(NomeDaFrenteDePesquisa)*. !!** 
-
-**!! *Não coloque os nomes dos alunos no título do repositório*. !!**
-
-**!! *Exemplo de título correto: 2025.1_G1_SMA_ProjetoComportamentoEmergente*. !!**
- 
- (Apague esses comentários)
-
-# NomeDoProjeto
+# Reputação com Blockchain
 
 **Disciplina**: FGA0053 - Sistemas Multiagentes <br>
-**Nro do Grupo (de acordo com a Planilha de Divisão dos Grupos)**: XX<br>
-**Frente de Pesquisa**: XXXXXXXXXX<br>
+**Nro do Grupo**: 03<br>
+**Frente de Pesquisa**: Reputação<br>
 
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| 22/2006884  |  Jose Vinicius Alvares Soares de Queiroz |
+| 22/1038248  |  IGOR ALVES DE ABREU |
+| 25/1035022 |   CAMILE BARBOSA GONZAGA DE OLIVEIRA |
+| 23/1011909  |  GUILHERME NASCIMENTO TEGNOUE |
+| 22/2014939  |  PEDRO FONSECA DE OLIVEIRA CRUZ |
+| 22/1038140  |  VITOR EVANGELISTA DA SILVA ALVES |
 
 ## Sobre 
-Descreva o seu projeto em linhas gerais. 
-Use referências, links, que permitam conhecer um pouco mais sobre o projeto.
-Capriche nessa seção, pois ela é a primeira a ser lida pelos interessados no projeto.
+O objetivo do grupo é construir uma simulação da bolsa de valores brasileira que
+utiliza blockchain para garantir a integridade das transações, além de empregar
+sistemas multi-agentes que tomarão decisões baseadas em reputação.
 
 ## Screenshots
 Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcionamento.
