@@ -8,7 +8,7 @@
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
-| 22/2006884  |  Jose Vinicius Alvares Soares de Queiroz |
+| 22/2006884  |  JOSE VINICIUS ALVARES SOARES DE QUEIROZ |
 | 22/1038248  |  IGOR ALVES DE ABREU |
 | 25/1035022 |   CAMILE BARBOSA GONZAGA DE OLIVEIRA |
 | 23/1011909  |  GUILHERME NASCIMENTO TEGNOUE |
