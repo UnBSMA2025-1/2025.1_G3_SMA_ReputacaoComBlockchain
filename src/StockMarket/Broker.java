@@ -28,28 +28,30 @@ public class Broker extends Agent {
 		//actions
 		String[] actions = {"BBDC3","AZUL4","CRFB3","ABEV3"};
 		
+		DFAgentDescription dfd = new  DFAgentDescription();
+		dfd.setName(getAID());	
+		
 		//Generating prices
 		for (String action:actions) {
 			double price = generateStockPrices(action);
 			pricestable.put(action, price);
 			
-			//Register in DF			
-			try {
-				DFAgentDescription dfd = new  DFAgentDescription();
-				dfd.setName(getAID());
-				
-				ServiceDescription sd = new ServiceDescription();
-				sd.setType(action);
-				
-				dfd.addServices(sd);
-				DFService.register(this, dfd);
-			}
-			catch (FIPAException e) {
-                e.printStackTrace();
-            }								
-			
+			ServiceDescription sd = new ServiceDescription();
+			sd.setType("sale-of-share");
+			sd.setName(action);
+			dfd.addServices(sd);
 		}
-		
+			
+			
+		//Register in DF			
+		try {
+				
+			DFService.register(this, dfd);
+		}
+		catch (FIPAException e) {
+              e.printStackTrace();
+        }								
+			
 		System.out.println(getLocalName() + "actions created");
         for (Map.Entry<String, Double> brokeractions : pricestable.entrySet()) {
             System.out.println(" - " + brokeractions.getKey() + ": R$ " + brokeractions.getValue());
