@@ -33,19 +33,18 @@ public class Investor extends Agent {
 		        try {
 		        	DFAgentDescription[] result = DFService.search(myAgent, template);
 		        	
-		        	for (DFAgentDescription dfd : result) {
-		        		 Iterator services = dfd.getAllServices();
-		        		 while (services.hasNext()) {
-		        			 ServiceDescription service = (ServiceDescription) services.next();
-		        			 if (!actions.contains(service.getName())) {
-		                            actions.add(service.getName());
-		                            brokers.put(service.getName(), dfd.getName());
-		                            System.out.println("action: " + service.getName() + " broker: " + dfd.getName());		        				 
-		        			 }
+		            for (DFAgentDescription dfd : result) {
+		        		Iterator services = dfd.getAllServices();
+		        		while (services.hasNext()) {
+		        			ServiceDescription service = (ServiceDescription) services.next();
+		        			if (!actions.contains(service.getName())) {
+		                        actions.add(service.getName());
+		                        brokers.put(service.getName(), dfd.getName());
+		                        System.out.println("action: " + service.getName() + " broker: " + dfd.getName());		        				 
+		        			}
 		        			 
-		        		 }
+		        		}
 		        	}
-		        	
 	                if (!actions.isEmpty()) {
 	                    myAgent.addBehaviour(new Negotiate());
 	                }
