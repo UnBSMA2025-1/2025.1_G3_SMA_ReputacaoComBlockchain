@@ -12,7 +12,6 @@
 | 22/1038248  |  IGOR ALVES DE ABREU |
 | 25/1035022 |   CAMILE BARBOSA GONZAGA DE OLIVEIRA |
 | 23/1011909  |  GUILHERME NASCIMENTO TEGNOUE |
-| 22/2014939  |  PEDRO FONSECA DE OLIVEIRA CRUZ |
 | 22/1038140  |  VITOR EVANGELISTA DA SILVA ALVES |
 
 ## Sobre 
@@ -24,16 +23,15 @@ sistemas multi-agentes que tomarão decisões baseadas em reputação.
 Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcionamento.
 
 ## Instalação 
-**Linguagens**: xxxxxx<br>
-**Tecnologias**: xxxxxx<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
-Insira um manual ou um script para auxiliar ainda mais.
-Gifs animados e outras ilustrações são bem-vindos!
+**Linguagens**: Java, xml<br>
+**Tecnologias**: Eclipse,VScode, Maven e Jade<br> 
+
+## Pré-requisitos
+Instalação e configuração dos ambientes de desenvolvimento.
+Os comandos necessários ainda serão padronizados e documentados
 
 ## Uso 
-Explique como usar seu projeto.
-Procure ilustrar em passos, com apoio de telas do software, seja com base na interface gráfica, seja com base no terminal.
-Nessa seção, deve-se revelar de forma clara sobre o funcionamento do software.
+A explicação e ilustração do uso do produto ainda será documentada
 
 ## Vídeo
 Adicione 1 ou mais vídeos com a execução do projeto.
