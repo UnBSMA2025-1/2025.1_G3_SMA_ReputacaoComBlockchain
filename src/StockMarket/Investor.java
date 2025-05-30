@@ -15,7 +15,8 @@ import java.util.*;
 public class Investor extends Agent {
 	
 	private Map<String, AID> brokers = new HashMap<>();
-	private List<String> actions = new ArrayList<>();
+	private List<AID> AgentsBrokers = new ArrayList<>();
+	private Random random = new Random();
 	
 	
 	@Override
@@ -25,7 +26,8 @@ public class Investor extends Agent {
 		addBehaviour(new TickerBehaviour(this, 10000) {
 		    protected void onTick() {
 		        System.out.println("looking for stocks");
-		        
+		        brokers.clear();
+		        AgentsBrokers.clear();
 		        DFAgentDescription template = new DFAgentDescription();
 		        ServiceDescription sd = new ServiceDescription();
 		        sd.setType("sale-of-share");
@@ -37,16 +39,18 @@ public class Investor extends Agent {
 		        		Iterator services = dfd.getAllServices();
 		        		while (services.hasNext()) {
 		        			ServiceDescription service = (ServiceDescription) services.next();
-		        			if (!actions.contains(service.getName())) {
-		                        actions.add(service.getName());
-		                        brokers.put(service.getName(), dfd.getName());
-		                        System.out.println("action: " + service.getName() + " broker: " + dfd.getName());		        				 
+		        			if (!AgentsBrokers.contains(dfd.getName())) {
+		                        AgentsBrokers.add(dfd.getName());		        				 
 		        			}
+		        			brokers.put(service.getName(), dfd.getName());
 		        			 
 		        		}
 		        	}
-	                if (!actions.isEmpty()) {
-	                    myAgent.addBehaviour(new Negotiate());
+	                if (!AgentsBrokers.isEmpty()) {
+	                    myAgent.addBehaviour(new RequestPrices());
+	                }
+	                else {
+	                	 System.out.println("No Broker");
 	                }
 
 		        			        	
@@ -58,50 +62,90 @@ public class Investor extends Agent {
 		});
 	}
 	
-	private class Negotiate extends Behaviour {
-		
-	    private int total = 0;
-	    private int response = 0;
-	    private Random random = new Random();
-	    
-	    
-	    @Override
-	    public void onStart() {
-	        for (String action : actions) {
-	            boolean buy = random.nextBoolean();
-	            if (buy) {
-	                AID broker = brokers.get(action);
-	                ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-	                msg.addReceiver(broker);
-	                msg.setContent(action);
-	                send(msg);
-	                System.out.println(getLocalName() + ": requesting" + action);
-	            } else {
-	                System.out.println(getLocalName() + ": not to buy " + action);
-	                response++;
+	 private class RequestPrices extends SequentialBehaviour {		 
+	        public RequestPrices() {
+	            for (AID broker : AgentsBrokers) {
+	                addSubBehaviour(new OneShotBehaviour() {
+	                    public void action() {
+	                        boolean buy = DecideToBuyBroker(broker);
+	                        if (buy) {
+	                            ACLMessage msg = new ACLMessage(ACLMessage.CFP);
+	                            msg.addReceiver(broker);
+	                            msg.setConversationId("stock-trade");
+	                            msg.setReplyWith("msg"+ System.currentTimeMillis());
+	                            msg.setContent("request-prices");
+	                            send(msg);
+	                            System.out.println(getLocalName() + ": Requested price list from " + broker.getLocalName());
+
+	                            addSubBehaviour(new PriceResponse(broker));
+	                        } else {
+	                            System.out.println(getLocalName() + ": Not buying from broker " + broker.getLocalName());
+	                        }
+	                    }
+	                });
 	            }
 	        }
-	    	
-	    }
-	    
-	    @Override 
-	    public void action() {
-	    	ACLMessage msg = receive();
-	        if (msg != null) {
-	            System.out.println(getLocalName() + ": Response: " + msg.getContent());
-	            response ++;
-	        } else {
-	            block();
+	    }	 	 
+	    private class PriceResponse extends Behaviour {
+	        private AID broker;
+	        private boolean done = false;
+
+	        public PriceResponse(AID broker) {
+	            this.broker = broker;
+	        }
+
+	        public void action() {
+	            ACLMessage msg = receive();
+	            if (msg != null && msg.getSender().equals(broker) && msg.getConversationId().equals("stock-trade")) {
+	                String prices = msg.getContent();
+	                System.out.println(getLocalName() + ": Received prices from " + broker.getLocalName() + " -> " + prices);
+	                String Action = chosenAction(prices);
+	                if (Action != null) {
+	                    ACLMessage buyRequest = new ACLMessage(ACLMessage.REQUEST);
+	                    buyRequest.addReceiver(broker);
+	                    buyRequest.setConversationId("buy-stock");
+	                    buyRequest.setReplyWith("buyRequest"+ System.currentTimeMillis());
+	                    buyRequest.setContent(Action);
+	                    send(buyRequest);
+	                    System.out.println(getLocalName() + ": Sent buy request for " + Action + " to " + broker.getLocalName());
+	                }
+	                done = true;
+	            } else {
+	                block(2000);
+	            }
+	        }
+
+	        public boolean done() {
+	            return done;
 	        }
 	    }
-	    
-	    
-	    @Override
-	    public boolean done() {
-	        return response >= total;
-	    }    
 
+	    private boolean DecideToBuyBroker(AID broker) {
+	        return random.nextBoolean();
+	    }
 
-	}
+	    private String chosenAction(String prices) {
+	        String[] actions = prices.split(",");
+	        String bestAction = null;
+	        double bestPrice = Double.MAX_VALUE;
+
+	        for (String action : actions) {
+	            String[] parts = action.split(":");
+	            if (parts.length == 2) {
+	                String Name = parts[0];
+	                try {
+	                    double price = Double.parseDouble(parts[1]);
+	                    if (price < bestPrice) {
+	                        bestPrice = price;
+	                        bestAction = Name;
+	                    }
+	                } catch (NumberFormatException e) {
+	                    System.out.println("invalid price: " + action);
+	                }
+	            }
+	        }
+
+	        return bestAction;
+	    }
 
 }
