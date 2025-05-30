@@ -12,7 +12,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription; // Descrição de ser
 
 import java.util.*; // Utilitários gerais do java
  
-public class Investor extends Agent {
+public class Investor2 extends Agent {
 
     private Map<String, Integer> portfolio = new HashMap<>(); 
 	// Adiciona algumas ações iniciais ao portfólio para simular posses que podem ser vendidas
