@@ -1,48 +1,71 @@
 package StockMarket;
 
-import jade.core.Agent; // Classe - agente
-import jade.core.AID; // Classe - ID do agente
-import jade.core.behaviours.TickerBehaviour; // Classe - ações repetidas a cada X tempo
-import jade.core.behaviours.OneShotBehaviour; // Classe - ações que acontecem uma única vez
-import jade.lang.acl.ACLMessage; // Classe - comunicação entre agentes
-import jade.domain.DFService; // Classe - registro e busca de serviços no DF
-import jade.domain.FIPAException; // Para lidar com exceções do FIPA
-import jade.domain.FIPAAgentManagement.DFAgentDescription; // Descrição de agente para o Directory Facilitator (DF)
-import jade.domain.FIPAAgentManagement.ServiceDescription; // Descrição de serviço prestado pelo agente para o DF
+import jade.core.Agent;
+import jade.core.AID;
+import jade.core.behaviours.TickerBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.CyclicBehaviour;
+import jade.lang.acl.ACLMessage;
+import jade.domain.DFService;
+import jade.domain.FIPAException;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
 
-import java.util.*; // Utilitários gerais do java
- 
+import java.util.*;
+
 public class Investor extends Agent {
 
-    private Map<String, Integer> portfolio = new HashMap<>(); 
-	// Adiciona algumas ações iniciais ao portfólio para simular posses que podem ser vendidas
-    // FIX - JÁ COMEÇA COM UM PORTIFÓLIO BEM PREENCHIDO
-	portfolio.put("BBDC3", 10);
-	portfolio.put("ABEV3", 5);
-    private double balance = 10000.0; 
-    // Lista - AIDs das corretoras conhecidas
-    private List<AID> brokers = new ArrayList<>(); 
+    //INVESTIDOR EXPERIENTE 
+
+    private Map<String, Integer> portfolio = new HashMap<>();
+    private double balance = 100000.0;
+    private List<AID> brokers = new ArrayList<>();
+    private Random random = new Random();
+
+    // Rastreia subidas e quedas
+    private Map<String, Integer> consecutiveRises = new HashMap<>();
+    private Map<String, Integer> consecutiveFalls = new HashMap<>();
+
+    // Ações que o investidor já possui
+    private String[] ownedStocks = {
+        "PETR4", "VALE3", "ITUB4", "BBDC4", "ABEV3",
+        "WEGE3", "RENT3", "B3SA3", "BBAS3", "CMIG4",
+        "BITH11"
+    };
 
     @Override
     protected void setup() {
-
         System.out.println(getLocalName() + " iniciado com R$ " + String.format("%.2f", balance));
 
-		//Primeira atitude
-        addBehaviour(new OneShotBehaviour() { // Procura corretoras
+        // Inicializa o portfólio com as ações e quantidades
+        portfolio.put("PETR4", 161);
+        portfolio.put("VALE3", 96);
+        portfolio.put("ITUB4", 133);
+        portfolio.put("BBDC4", 308);
+        portfolio.put("ABEV3", 356);
+        portfolio.put("WEGE3", 118);
+        portfolio.put("RENT3", 116);
+        portfolio.put("B3SA3", 358);
+        portfolio.put("BBAS3", 213);
+        portfolio.put("CMIG4", 461);
+
+        portfolio.put("BITH11", 366);
+
+        // Procura corretoras
+        addBehaviour(new OneShotBehaviour() {
             @Override
             public void action() {
-                findBrokers();
+                findBrokers(); 
             }
         });
 
-        //Segunda atitude
-        addBehaviour(new TickerBehaviour(this, 10000) { // Decisão de negociação a cada 10 seg.
+        // Comportamento de decisão de negociação a cada 10 segundos
+        addBehaviour(new TickerBehaviour(this, 10000) {
             @Override
             protected void onTick() {
                 if (brokers.isEmpty()) {
                     System.out.println(getLocalName() + " Nenhuma corretora encontrada ainda, tentando novamente...");
-                    findBrokers(); 
+                    findBrokers();
                     return;
                 }
                 makeSellDecision();
@@ -50,37 +73,65 @@ public class Investor extends Agent {
             }
         });
 
-        //Terceira atitude
+        // Comportamento para receber e processar mensagens
         addBehaviour(new CyclicBehaviour() {
             @Override
             public void action() {
-                ACLMessage message = receive(); 
+                ACLMessage message = receive();
 
                 if (message != null) {
-
+                    if (!brokers.contains(message.getSender())) {
+                        System.out.println(getLocalName() + " - Mensagem ignorada de corretora desconhecida: " + message.getSender().getLocalName());
+                        return; 
+                    }
                     System.out.println(getLocalName() + " - recebeu mensagem: " + message.getContent() + " de " + message.getSender().getLocalName());
                     String content = message.getContent();
                     String[] parts = content.split("\\|");
 
-                    if (parts[0].equals("TRADE_FILLED")) { //"TRADE_FILLED|TYPE|STOCK|QUANTITY|PRICE"
-                        String tradeType = parts[1]; 
-                        String stock = parts[2];
-                        int quantity = Integer.parseInt(parts[3]); 
-                        double price = Double.parseDouble(parts[4]);
+                    if (parts[0].equals("BUY") || parts[0].equals("SELL")) { 
+                    // Ex: "BUY|ATIVO|QUANTIDADE|PRECO"
+                        String tradeType = parts[0];
+                        String stock = parts[1];
+                        int quantity = Integer.parseInt(parts[2]);
+                        double price = Double.parseDouble(parts[3]);
 
-            
-                    } else if (msg.getPerformative() == ACLMessage.AGREE) { // ordem aceita pela corretora
+                        if (tradeType.equals("BUY")) {
+                            addStock(stock, quantity);
+                            updateBalance(-(quantity * price));
+                            System.out.println(getLocalName() + " - COMPRA de " + quantity + " " + stock + " a R$" + String.format("%.2f", price) + " concluída.");
+                        } else if (tradeType.equals("SELL")) {
+                            removeStock(stock, quantity);
+                            updateBalance(quantity * price);
+                            System.out.println(getLocalName() + " - VENDA de " + quantity + " " + stock + " a R$" + String.format("%.2f", price) + " concluída.");
+                        }
+                        // Reinicia as contagens de subidas/quedas para a ação após a transação
+                        consecutiveRises.put(stock, 0);
+                        consecutiveFalls.put(stock, 0);
+
+                    } else if (message.getPerformative() == ACLMessage.AGREE) { // ordem aceita pela corretora
                         System.out.println(getLocalName() + " - Ordem aceita pela corretora: " + content);
-                        // se a corretor aceita // atualiza saldo e portifolio
 
-                    } else if (msg.getPerformative() == ACLMessage.REFUSE) { // ordem recusada pela corretora
+                    } else if (message.getPerformative() == ACLMessage.REFUSE) { // ordem recusada pela corretora
                         System.out.println(getLocalName() + " - Ordem recusada pela corretora: " + content);
-                        // Em um sistema mais robusto, aqui você reverteria alterações de saldo/portfólio
-                        // que foram feitas preventivamente ao enviar a ordem.
+                        
+                    } else if (parts[0].equals("PRICE_UPDATE")) { // "PRICE_UPDATE|STOCK|CURRENT_PRICE|PREVIOUS_PRICE"
+                        String stock = parts[1];
+                        double currentPrice = Double.parseDouble(parts[2]);
+                        double previousPrice = Double.parseDouble(parts[3]);
 
+                        // Atualiza as sequências de subidas e quedas
+                        if (currentPrice > previousPrice) {
+                            consecutiveRises.put(stock, consecutiveRises.getOrDefault(stock, 0) + 1);
+                            consecutiveFalls.put(stock, 0); // Reseta as quedas
+                        } else if (currentPrice < previousPrice) {
+                            consecutiveFalls.put(stock, consecutiveFalls.getOrDefault(stock, 0) + 1);
+                            consecutiveRises.put(stock, 0); // Reseta as subidas
+                        } else { // Preço igual
+                            consecutiveRises.put(stock, 0);
+                            consecutiveFalls.put(stock, 0);
+                        }
                     } else if (parts[0].equals("ORDER_QUEUED_ON_EXCHANGE")) {
-                        // Mensagem informando que a ordem foi enfileirada na bolsa (não imediatamente casada)
-                        System.out.println(getLocalName() + " (Investidor) Ordem enfileirada na Bolsa de Valores: " + content);
+                        System.out.println(getLocalName() + " - Ordem enfileirada na Bolsa de Valores: " + content);
                     }
                 } else {
                     block();
@@ -89,8 +140,6 @@ public class Investor extends Agent {
         });
     }
 
-
-
     private void findBrokers() {
         DFAgentDescription template = new DFAgentDescription();
         ServiceDescription sd = new ServiceDescription();
@@ -98,99 +147,75 @@ public class Investor extends Agent {
         template.addServices(sd);
 
         try {
-            DFAgentDescription[] result = DFService.search(this, template); // Realiza a busca
+            DFAgentDescription[] result = DFService.search(this, template);
             brokers.clear();
             for (int i = 0; i < result.length; ++i) {
-                brokers.add(result[i].getName()); // Adiciona o AID da corretora encontrada
-                System.out.println(getLocalName() + " (Investidor) encontrou corretora: " + result[i].getName().getLocalName());
+                brokers.add(result[i].getName());
+                System.out.println(getLocalName() + " - encontrou corretora: " + result[i].getName().getLocalName());
             }
         } catch (FIPAException fe) {
-            fe.printStackTrace(); // Falha na busca no DF
+            fe.printStackTrace();
         }
     }
-
+    
     private void makeBuyDecision() {
-
         if (brokers.isEmpty()) {
             System.out.println(getLocalName() + "- nenhuma corretora disponível para negociar.");
             return;
         }
 
-        // Escolhe uma corretora
-        AID chosenBroker = brokers.get(random.nextInt(brokers.size()));
+        // Critério: só compra mais ações das que já possui
+        List<String> currentOwnedStocks = new ArrayList<>(portfolio.keySet());
+        if (currentOwnedStocks.isEmpty()) {
+            System.out.println(getLocalName() + " - Não possui ações para comprar mais.");
+            return;
+        }
 
-        // Escolhe uma ação 
-        String chosenStock = availableStocks[random.nextInt(availableStocks.length)];
+        String chosenStock = currentOwnedStocks.get(random.nextInt(currentOwnedStocks.size()));
 
-        // Escolhe a quantidade de ações
-        int quantity = random.nextInt(10) + 1; 
+        // Critério: só compra se a ação teve 5 subidas seguidas
+        if (consecutiveRises.getOrDefault(chosenStock, 0) >= 5) {
+            AID chosenBroker = brokers.get(random.nextInt(brokers.size()));
+            int quantity = random.nextInt(10) + 1; // Quantidade aleatória
 
-        // Cria uma mensagem ACL do tipo REQUEST
-        ACLMessage message = new ACLMessage(ACLMessage.REQUEST); 
+            ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
+            message.addReceiver(chosenBroker);
+            message.setReplyWith("investor-order-buy" + System.currentTimeMillis());
+            String content = "BUY|" + chosenStock + "|" + quantity;
+            message.setContent(content);
 
-        // Define a corretora escolhida como destinatário
-        message.addReceiver(chosenBroker); 
-
-        // Define um ID (único) para esta ordem
-        message.setReplyWith("investor-order-buy" + System.currentTimeMillis()); 
-
-        // Constrói o conteúdo da mensagem para uma ordem de COMPRA
-        String content = "BUY|" + chosenStock + "|" + quantity;
-        message.setContent(content);
-
-        System.out.println(getLocalName() + " - quer COMPRAR " + quantity + " de " + chosenStock + " da " + chosenBroker.getLocalName());
-        
-        // Envia a mensagem para a corretora
-        send(message); 
-
-        //Adiciona o ID desta ordem na lista de ordens pendentes
-        //
+            System.out.println(getLocalName() + " - quer COMPRAR " + quantity + " de " + chosenStock + " da " + chosenBroker.getLocalName() + " (5 subidas seguidas).");
+            send(message);
+        }
     }
 
-
-    private void makeSellDecision() { 
-
+    private void makeSellDecision() {
         if (brokers.isEmpty()) {
             System.out.println(getLocalName() + "- nenhuma corretora disponível para negociar.");
             return;
         }
 
-        //verifica se quer vender alguma ação e a quantidade que quer vender
-        // se sim, continua, se não : block
+        // Critério: só vende uma ação se ela teve 10 quedas seguidas e se possui a ação
+        List<String> sellableStocks = new ArrayList<>();
+        for (String stock : portfolio.keySet()) {
+            if (portfolio.get(stock) > 0 && consecutiveFalls.getOrDefault(stock, 0) >= 10) {
+                sellableStocks.add(stock);
+            }
+        }
 
-        // Escolhe uma corretora
+        String chosenStock = sellableStocks.get(random.nextInt(sellableStocks.size()));
         AID chosenBroker = brokers.get(random.nextInt(brokers.size()));
+        int quantity = random.nextInt(portfolio.get(chosenStock)) + 1; // Vende uma quantidade que possui
 
-        // Escolhe uma ação 
-        String chosenStock = availableStocks[random.nextInt(availableStocks.length)];
-
-        // Escolhe a quantidade de ações
-        int quantity = random.nextInt(10) + 1;
-
-        // Cria uma mensagem ACL do tipo REQUEST
-        ACLMessage message = new ACLMessage(ACLMessage.REQUEST); 
-
-        // Define a corretora escolhida como destinatário
+        ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
         message.addReceiver(chosenBroker);
-        
-        // Define um ID (único) para esta ordem do investidor
-        message.setReplyWith("investor-order-sell" + System.currentTimeMillis()); 
-
-        
-        // Constrói o conteúdo da mensagem para uma ordem de VENDA
+        message.setReplyWith("investor-order-sell" + System.currentTimeMillis());
         String content = "SELL|" + chosenStock + "|" + quantity;
         message.setContent(content);
 
-        System.out.println(getLocalName() + " - quer VENDER " + quantity + " de " + chosenStock + " para " + chosenBroker.getLocalName());
-        
-        // Envia a mensagem para a corretora
-        send(message); 
-
-         //Adiciona o ID desta ordem na lista de ordens pendentes
-        //
-
-        }
-
+        System.out.println(getLocalName() + " - quer VENDER " + quantity + " de " + chosenStock + " para " + chosenBroker.getLocalName() + " (10 quedas seguidas).");
+        send(message);
+    }
 
     public void addStock(String stock, int quantity) {
         portfolio.put(stock, portfolio.getOrDefault(stock, 0) + quantity);
@@ -209,7 +234,6 @@ public class Investor extends Agent {
         }
     }
 
-
     public void updateBalance(double amount) {
         this.balance += amount;
         System.out.println(getLocalName() + " - saldo atualizado para R$ " + String.format("%.2f", balance));
@@ -219,5 +243,4 @@ public class Investor extends Agent {
     protected void takeDown() {
         System.out.println(getLocalName() + " - encerrando.");
     }
-
 }
