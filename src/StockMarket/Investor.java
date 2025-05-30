@@ -16,6 +16,7 @@ public class Investor extends Agent {
 
     private Map<String, Integer> portfolio = new HashMap<>(); 
 	// Adiciona algumas ações iniciais ao portfólio para simular posses que podem ser vendidas
+    // FIX - JÁ COMEÇA COM UM PORTIFÓLIO BEM PREENCHIDO
 	portfolio.put("BBDC3", 10);
 	portfolio.put("ABEV3", 5);
     private double balance = 10000.0; 

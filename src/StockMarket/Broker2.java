@@ -13,21 +13,21 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 import java.util.*;
 
-// Essa Array de AÇÕES pode ser uma importação de um arquivo independente String[] availableStocks = { }; 
 
-// A corretora gerenciará ordens e portfólios de investidores.
+// A corretora gerencia ordens e portfólios de investidores.
 public class Broker2 extends Agent {
 
-    // AID da bolsa
-    private AID stockExchangeAID;
     
-    // Mapas - portfólios dos investidos da corretora // NomeInvestidor -> Ação -> Quantidade
+    private AID StockExchangeAID;
+    
+    // Mapas - NomeInvestidor -> Ação -> Quantidade
+    // Um mesmo investidor pode ter mais de uma ação
     private Map<String, Map<String, Integer>> investorPortfolios = new HashMap<>(); 
 
-    // Mapa - saldos dos investidores que usam esta corretora // NomeInvestidor -> Saldo
+    // Mapa - NomeInvestidor -> Saldo
     private Map<String, Double> investorBalances = new HashMap<>(); 
 
-    // Mapa para rastrear ordens pendentes
+    // Mapa para ordens pendentes
     private Map<String, InvestorOrderInfo> pendingInvestorOrders = new HashMap<>();
 
 
@@ -35,7 +35,7 @@ public class Broker2 extends Agent {
     protected void setup() {
         System.out.println(getLocalName() + "- Corretora iniciada.");
 
-        // Registra no DF como um serviço 'sale-of-share' -> venda de ação
+        // Registra no DF como um serviço 'sale-of-share' 
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());
         ServiceDescription sd = new ServiceDescription();
@@ -43,6 +43,7 @@ public class Broker2 extends Agent {
         sd.setName(getLocalName() + "-broker-service");
         dfd.addServices(sd);
         
+        //Tentativa de registro
         try {
             DFService.register(this, dfd);
         } catch (FIPAException e) {
@@ -61,14 +62,15 @@ public class Broker2 extends Agent {
             @Override
             public void action() {
                 ACLMessage msg = receive();
+
                 if (msg != null) {
                     String senderName = msg.getSender().getLocalName();
                     String content = msg.getContent();
                     System.out.println(getLocalName() + " - recebeu: '" + content + "' de " + senderName);
 
-                    if (senderName.startsWith("Investor")) { // Mensagem de um Investidor
+                    if (senderName.startsWith("Investor")) { 
                         processInvestorOrder(msg);
-                    } else if (senderName.startsWith("StockExchange")) { // Mensagem da Bolsa de Valores
+                    } else if (senderName.startsWith("StockExchange")) {
                         processExchangeMessage(msg);
                     } else {
                         System.out.println(getLocalName() + " - recebeu mensagem inesperada de " + senderName);
@@ -88,6 +90,7 @@ public class Broker2 extends Agent {
 
         try {
             DFAgentDescription[] result = DFService.search(this, template);
+
             if (result.length > 0) {
                 stockExchangeAID = result[0].getName();
                 System.out.println(getLocalName() + " - encontrou a Bolsa de Valores: " + stockExchangeAID.getLocalName());
@@ -126,7 +129,7 @@ public class Broker2 extends Agent {
             // Inicializa portfólio e saldo do investidor se ainda não estiverem presentes
             investorPortfolios.putIfAbsent(investorName, new HashMap<>());
 
-            // Saldo inicial para novos investidores ????
+            // Saldo inicial para novos investidores
             investorBalances.putIfAbsent(investorName, 10000.0); 
 
             // Registra a ordem pendente do investidor
