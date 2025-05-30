@@ -3,7 +3,7 @@
 
 **Disciplina**: FGA0053 - Sistemas Multiagentes <br>
 **Nro do Grupo**: 03<br>
-**Frente de Pesquisa**: Reputação<br>
+**Frente de Pesquisa**: Multiagentes, reputação e Bolsa de Valores<br>
 
 ## Alunos
 |Matrícula | Aluno |
@@ -12,23 +12,25 @@
 | 22/1038248  |  IGOR ALVES DE ABREU |
 | 25/1035022 |   CAMILE BARBOSA GONZAGA DE OLIVEIRA |
 | 23/1011909  |  GUILHERME NASCIMENTO TEGNOUE |
-| 22/2014939  |  PEDRO FONSECA DE OLIVEIRA CRUZ |
 | 22/1038140  |  VITOR EVANGELISTA DA SILVA ALVES |
 
 ## Sobre 
-O objetivo do grupo é construir uma simulação da bolsa de valores brasileira que
-utiliza blockchain para garantir a integridade das transações, além de empregar
-sistemas multi-agentes que tomarão decisões baseadas em reputação.
+O grupo realizou a simulação de transações realizadas na bolsa de valores brasileira utilizando SISTEMAS MULTIAGENTES e suas características. A equipe propõe a utilização de um algoritmo de REPUTAÇÃO com o objetivo de direcionar a tomada de decisão por parte dos agentes investidores, além de aplicar os princípios comportamentais (BEHAVIOR) em cada um dos agentes.
 
 ## Screenshots
 Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcionamento.
 
 ## Instalação 
-**Linguagens**: xxxxxx<br>
-**Tecnologias**: xxxxxx<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
-Insira um manual ou um script para auxiliar ainda mais.
-Gifs animados e outras ilustrações são bem-vindos!
+**Linguagens**: Java<br>
+**Tecnologias**: Eclipse,VScode, Jade e Maven<br>
+
+## Pré-requisitos
+Instalação de uma IDE (A equipe utilizou Eclipse e VScode)
+Instalação do pacote Java.
+Instalação e configuração da framework Jade.
+Instalação e configuração do gerenciados de dependências Maven.
+
+Resiliência e vontade de aprender coisas novas!
 
 ## Uso 
 Explique como usar seu projeto.
