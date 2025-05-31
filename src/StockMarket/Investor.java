@@ -216,6 +216,7 @@ public class Investor extends Agent {
 	        } catch (FIPAException e) {
 	            e.printStackTrace();
 	        }
+	        System.exit(0);
 	        System.out.println(getLocalName() + "closing investor");
 			
 		}
