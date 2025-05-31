@@ -3,7 +3,7 @@ package StockMarket;
 //library
 import jade.core.Agent; 
 import jade.core.AID;
-import jade.core.behaviours.CyclicBehaviour;                    
+import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.domain.DFService;                        
@@ -17,8 +17,10 @@ import java.util.*;
 public class Broker extends Agent {
 	
 	//prices table and random
-	private Map<String, Double> pricestable = new HashMap<>();
+	private AID stock;
 	private Random random = new Random();
+	private boolean busy = false;
+
 	
 	
 	@Override
@@ -26,24 +28,13 @@ public class Broker extends Agent {
 		// start message 
 		System.out.println(getLocalName() + "Start broker" );
 		
-		//actions
-		String[] actions = {"BBDC3","AZUL4"};
-		
 		DFAgentDescription dfd = new  DFAgentDescription();
 		dfd.setName(getAID());	
 		
-		//Generating prices
-		for (String action:actions) {
-			double price = generateStockPrices(action);
-			pricestable.put(action, price);
-			
-			ServiceDescription sd = new ServiceDescription();
-			sd.setType("sale-of-share");
-			sd.setName(action);
-			dfd.addServices(sd);
-		}
-			
-			
+		ServiceDescription sd = new ServiceDescription();
+		sd.setType("brokerage-services");
+		sd.setName("StockBroker");
+		dfd.addServices(sd);
 		//Register in DF			
 		try {
 				
@@ -51,66 +42,94 @@ public class Broker extends Agent {
 		}
 		catch (FIPAException e) {
               e.printStackTrace();
-        }								
-			
-		System.out.println(getLocalName() + "actions created");
-        for (Map.Entry<String, Double> brokeractions : pricestable.entrySet()) {
-            System.out.println(" - " + brokeractions.getKey() + ": R$ " + brokeractions.getValue());
-        }
-        
-        
+        }	
+		    
+		
+		addBehaviour(new TickerBehaviour(this, 3000) {
+		    protected void onTick() {
+		        DFAgentDescription template = new DFAgentDescription();
+		        ServiceDescription sdd = new ServiceDescription();
+		        sdd.setType("stock-market");
+		        template.addServices(sdd);
+
+		        try {
+		            DFAgentDescription[] result = DFService.search(myAgent, template);
+		            if (result.length > 0) {
+		                stock = result[0].getName(); 
+		                System.out.println(getLocalName() + ": found " + stock.getLocalName());
+		                this.stop();
+
+		            } else {
+		                System.out.println(getLocalName() + " loocking bag...");
+		            }
+
+		        } catch (FIPAException fe) {
+		            fe.printStackTrace();
+		        }
+		    }
+		});
+		
+	    addBehaviour(new TickerBehaviour(this, 5000) {
+	        protected void onTick() {
+	            DFAgentDescription template = new DFAgentDescription();
+	            ServiceDescription sd = new ServiceDescription();
+	            sd.setType("stock-market");
+	            template.addServices(sd);
+
+	            try {
+	                DFAgentDescription[] result = DFService.search(myAgent, template);
+	                if (result.length == 0) {
+	                    System.out.println(getLocalName() + ": Stock not found. Closing Broker...");
+	                    myAgent.doDelete(); 
+	                }
+	            } catch (FIPAException fe) {
+	                fe.printStackTrace();
+	            }
+	        }
+	    });
+
+
+		
+		
         addBehaviour(new OfferRequestsServer());
 				
 	}
 	
 	
-	private class OfferRequestsServer extends CyclicBehaviour {
-
+	private class OfferRequestsServer extends CyclicBehaviour {				
 	    public void action() {
 	        ACLMessage msg = myAgent.receive();
 	        
 	        if (msg != null) {
-	            String content = msg.getContent();
+	            String content = msg.getConversationId();
 	            ACLMessage reply = msg.createReply();
 
 	            switch (msg.getPerformative()) {
 	                case ACLMessage.CFP:
-	                    if ("request-prices".equals(content)) {
-	                        StringBuilder ActionsList = new StringBuilder();
-	                        for (Map.Entry<String, Double> entry : pricestable.entrySet()) {
-	                            if (ActionsList.length() > 0) {
-	                                ActionsList.append(",");
-	                            }
-	                            ActionsList.append(entry.getKey()).append(":").append(entry.getValue());
-	                        }
-
-	                        reply.setPerformative(ACLMessage.INFORM);
-	                        reply.setConversationId("stock-trade");
-	                        reply.setContent(ActionsList.toString());
-	                        send(reply);
+	                    if ("stock-trade".equals(content)) {             			                    	
+	                    	ACLMessage msg2 = new ACLMessage(ACLMessage.CFP);
+	                    	msg2.addReceiver(stock);
+	                    	msg2.setConversationId("sale-actions");
+	                    	msg2.setReplyWith("msg2"+ System.currentTimeMillis());
+	                    	msg2.setContent(msg.getContent());
+	                    	send(msg2);
+	                    	System.out.println(getLocalName() + ": Requested "  + msg.getContent() + " for "  + stock);
+	                    	
+	                    	myAgent.addBehaviour(new WaitStock(myAgent,msg,"sale-actions",msg2.getReplyWith()));
+	                    
 	                    }
 	                    break;
 
 	                case ACLMessage.REQUEST:
-	                    if ("buy-stock".equals(msg.getConversationId())) {
-	                        String ToBuy = content;
-
-	                        if (pricestable.containsKey(ToBuy)) {
-	                            double price = pricestable.get(ToBuy);
-	                            pricestable.remove(ToBuy); 
-	                            reply.setPerformative(ACLMessage.AGREE);
-	                            reply.setConversationId("buy-stock-confirmation");
-	                            reply.setContent("get" + ToBuy + " R$ " + price);
-	                        } else {
-	                            reply.setPerformative(ACLMessage.REFUSE);
-	                            reply.setConversationId("buy-stock-confirmation");
-	                            reply.setContent("Action " + ToBuy + "unavailable");
-	                        }
-
-	                        send(reply);
-	                        if(pricestable.isEmpty()) {
-	                        	myAgent.doDelete();
-	                        }
+	                    if ("buy-action".equals(msg.getConversationId())) {
+	                    	ACLMessage hd = new ACLMessage(ACLMessage.REQUEST);
+	                    	hd.addReceiver(stock);
+	                    	hd.setConversationId("buy");
+	                    	hd.setReplyWith("hd" + System.currentTimeMillis());
+	                    	hd.setContent(msg.getContent());
+	                    	send(hd);
+	                    	
+	                    	myAgent.addBehaviour(new WaitStock(myAgent,msg,"buy",hd.getReplyWith()));
 	                    }
 	                    break;
 
@@ -124,21 +143,91 @@ public class Broker extends Agent {
 	        }
 	    }
 	}
-
-
-	private double generateStockPrices(String action) {
-		double base = 5 + random.nextDouble() * 195; // base value
-		double reflexivity = random.nextDouble() * 0.05; //expectations
-		double transaction = 0.001 + random.nextDouble() * 0.004; //broker fee
+	
+	
+	private class WaitStock extends Behaviour{
 		
-		base *= 1 + (reflexivity *(random.nextGaussian() / 10));
-		if (base < 0.01) {
-			base = 0.01;
+		private boolean finished = false;
+		private ACLMessage originalMsg;
+        private String conversationId;
+        private String replyWith;
+		
+		public WaitStock(Agent a , ACLMessage msg, String conversationId , String replyWith) {
+			super(a);
+			this.originalMsg = msg;
+			this.conversationId = conversationId;
+	        this.replyWith = replyWith;
+	        busy = true;
 		}
-		double finalprice = base * (1 + transaction);
+
+		@Override
+		public void action() {
+			MessageTemplate mt = MessageTemplate.and(
+				    MessageTemplate.and(
+				        MessageTemplate.MatchConversationId(conversationId),
+				        MessageTemplate.MatchSender(stock)
+				    ),
+				    MessageTemplate.MatchInReplyTo(replyWith)
+				);
+			ACLMessage response = myAgent.receive(mt);
+			
+			if(response != null) {			
+				String responseStock = response.getContent();
+				ACLMessage reply = originalMsg.createReply();
+				if("action unavailable".equals(responseStock)) {
+					reply.setPerformative(ACLMessage.REFUSE);
+					reply.setInReplyTo(response.getReplyWith());
+					reply.setContent("action unavailable");
+					System.out.println(" Not Confirmed broker");
+				}
+				else {
+					switch (response.getPerformative()) {
+					
+					   case ACLMessage.INFORM:
+						   Double priceStock = Double.parseDouble(response.getContent());
+						   Double finalPrice = placeFee(priceStock); 
+						   reply.setPerformative(ACLMessage.INFORM);
+						   reply.setInReplyTo(response.getReplyWith());
+						   reply.setContent(String.valueOf(finalPrice.doubleValue()));
+						   System.out.println(getLocalName() + " Final Price " + finalPrice);
+						   break;
+							
+					   case ACLMessage.AGREE:
+						   reply.setPerformative(ACLMessage.AGREE);
+						   reply.setInReplyTo(response.getReplyWith());
+						   reply.setContent("confirmed-purchase");
+						   System.out.println("Confirmed-puchase broker");
+						   break;						   
+					   default:
+						   block();
+						   break;
+					}
+			  
+				}
+				myAgent.send(reply);
+				finished = true;
+				busy = false;
+				
+			}
+			else {
+				block();
+			}
+			
+		}
+
+		@Override
+		public boolean done() {
+
+			return finished;
+		}
 		
-		return Math.round(finalprice * 100.0) / 100.0;		
 	}
+	
+	private double placeFee(Double priceStock) {
+		double transaction = 0.001 + random.nextDouble() * 0.004;
+		double finalprice = priceStock * (1 + transaction);
+		return Math.round(finalprice * 100.0) / 100.0;		
+	}	
 	
 	@Override
 	protected void takeDown() {
