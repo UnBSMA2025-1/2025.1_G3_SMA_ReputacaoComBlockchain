@@ -1,0 +1,504 @@
+{
+  "Tecnologia": [
+    {
+      "nome": "Totvs ON",
+      "chave_acesso": "TOTS3"
+    },
+    {
+      "nome": "Locaweb ON",
+      "chave_acesso": "LWSA3"
+    },
+    {
+      "nome": "Apple Inc.",
+      "chave_acesso": "AAPL"
+    },
+    {
+      "nome": "Microsoft Corp.",
+      "chave_acesso": "MSFT"
+    },
+    {
+      "nome": "Alphabet Inc. Class A (Google)",
+      "chave_acesso": "GOOGL"
+    },
+    {
+      "nome": "Amazon.com Inc.",
+      "chave_acesso": "AMZN"
+    },
+    {
+      "nome": "NVIDIA Corporation",
+      "chave_acesso": "NVDA"
+    },
+    {
+      "nome": "Meta Platforms Inc.",
+      "chave_acesso": "META"
+    },
+    {
+      "nome": "Visa Inc.",
+      "chave_acesso": "V"
+    },
+    {
+      "nome": "Mastercard Incorporated",
+      "chave_acesso": "MA"
+    },
+    {
+      "nome": "Adobe Inc.",
+      "chave_acesso": "ADBE"
+    },
+    {
+      "nome": "Salesforce Inc.",
+      "chave_acesso": "CRM"
+    },
+    {
+      "nome": "Intel Corporation",
+      "chave_acesso": "INTC"
+    },
+    {
+      "nome": "Cisco Systems Inc.",
+      "chave_acesso": "CSCO"
+    },
+    {
+      "nome": "Oracle Corporation",
+      "chave_acesso": "ORCL"
+    },
+    {
+      "nome": "Advanced Micro Devices Inc.",
+      "chave_acesso": "AMD"
+    },
+    {
+      "nome": "QUALCOMM Incorporated",
+      "chave_acesso": "QCOM"
+    },
+    {
+      "nome": "Texas Instruments Incorporated",
+      "chave_acesso": "TXN"
+    },
+    {
+      "nome": "Broadcom Inc.",
+      "chave_acesso": "AVGO"
+    },
+    {
+      "nome": "SAP SE",
+      "chave_acesso": "SAP"
+    },
+    {
+      "nome": "ASML Holding N.V.",
+      "chave_acesso": "ASML"
+    },
+    {
+      "nome": "Shopify Inc.",
+      "chave_acesso": "SHOP"
+    },
+    {
+      "nome": "Alibaba Group Holding Limited",
+      "chave_acesso": "BABA"
+    }
+  ],
+  "Financeiro": [
+    {
+      "nome": "Itaú Unibanco PN",
+      "chave_acesso": "ITUB4"
+    },
+    {
+      "nome": "Bradesco PN",
+      "chave_acesso": "BBDC4"
+    },
+    {
+      "nome": "Banco do Brasil ON",
+      "chave_acesso": "BBAS3"
+    },
+    {
+      "nome": "Santander Brasil Units",
+      "chave_acesso": "SANB11"
+    },
+    {
+      "nome": "B3 - Brasil Bolsa Balcão ON",
+      "chave_acesso": "B3SA3"
+    },
+    {
+      "nome": "Itaúsa PN",
+      "chave_acesso": "ITSA4"
+    },
+    {
+      "nome": "BTG Pactual Units",
+      "chave_acesso": "BPAC11"
+    },
+    {
+      "nome": "JPMorgan Chase & Co.",
+      "chave_acesso": "JPM"
+    },
+    {
+      "nome": "Bank of America Corp",
+      "chave_acesso": "BAC"
+    },
+    {
+      "nome": "Berkshire Hathaway Inc. Class B",
+      "chave_acesso": "BRK-B"
+    },
+    {
+      "nome": "The Goldman Sachs Group Inc.",
+      "chave_acesso": "GS"
+    },
+    {
+      "nome": "Morgan Stanley",
+      "chave_acesso": "MS"
+    },
+    {
+      "nome": "American Express Company",
+      "chave_acesso": "AXP"
+    },
+    {
+      "nome": "BlackRock Inc.",
+      "chave_acesso": "BLK"
+    }
+  ],
+  "Consumo Cíclico": [
+    {
+      "nome": "Magazine Luiza ON",
+      "chave_acesso": "MGLU3"
+    },
+    {
+      "nome": "Lojas Renner ON",
+      "chave_acesso": "LREN3"
+    },
+    {
+      "nome": "CVC Brasil ON",
+      "chave_acesso": "CVCB3"
+    },
+    {
+      "nome": "Grupo Soma ON",
+      "chave_acesso": "SOMA3"
+    },
+    {
+      "nome": "Arezzo Indústria e Comércio ON",
+      "chave_acesso": "ARZZ3"
+    },
+    {
+      "nome": "YDUQS Participações ON",
+      "chave_acesso": "YDUQ3"
+    },
+    {
+      "nome": "Cogna Educação ON",
+      "chave_acesso": "COGN3"
+    },
+    {
+      "nome": "Petz ON",
+      "chave_acesso": "PETZ3"
+    },
+    {
+      "nome": "Tesla Inc.",
+      "chave_acesso": "TSLA"
+    },
+    {
+      "nome": "The Home Depot Inc.",
+      "chave_acesso": "HD"
+    },
+    {
+      "nome": "McDonald's Corporation",
+      "chave_acesso": "MCD"
+    },
+    {
+      "nome": "NIKE Inc.",
+      "chave_acesso": "NKE"
+    },
+    {
+      "nome": "Starbucks Corporation",
+      "chave_acesso": "SBUX"
+    },
+    {
+      "nome": "Target Corporation",
+      "chave_acesso": "TGT"
+    },
+    {
+      "nome": "LVMH Moët Hennessy Louis Vuitton SE - ADR",
+      "chave_acesso": "LVMUY"
+    },
+    {
+      "nome": "Toyota Motor Corporation",
+      "chave_acesso": "TM"
+    }
+  ],
+  "Consumo Não-Cíclico / Essencial": [
+    {
+      "nome": "Ambev ON",
+      "chave_acesso": "ABEV3"
+    },
+    {
+      "nome": "Raia Drogasil ON",
+      "chave_acesso": "RADL3"
+    },
+    {
+      "nome": "BRF ON",
+      "chave_acesso": "BRFS3"
+    },
+    {
+      "nome": "JBS ON",
+      "chave_acesso": "JBSS3"
+    },
+    {
+      "nome": "Natura &Co ON",
+      "chave_acesso": "NTCO3"
+    },
+    {
+      "nome": "Assaí Atacadista ON",
+      "chave_acesso": "ASAI3"
+    },
+    {
+      "nome": "Carrefour Brasil ON",
+      "chave_acesso": "CRFB3"
+    },
+    {
+      "nome": "M. Dias Branco ON",
+      "chave_acesso": "MDIA3"
+    },
+    {
+      "nome": "Walmart Inc.",
+      "chave_acesso": "WMT"
+    },
+    {
+      "nome": "Procter & Gamble Co.",
+      "chave_acesso": "PG"
+    },
+    {
+      "nome": "The Coca-Cola Company",
+      "chave_acesso": "KO"
+    },
+    {
+      "nome": "PepsiCo Inc.",
+      "chave_acesso": "PEP"
+    },
+    {
+      "nome": "Costco Wholesale Corporation",
+      "chave_acesso": "COST"
+    },
+    {
+      "nome": "Unilever PLC",
+      "chave_acesso": "UL"
+    }
+  ],
+  "Saúde": [
+    {
+      "nome": "Hapvida ON",
+      "chave_acesso": "HAPV3"
+    },
+    {
+      "nome": "Rede D'Or São Luiz ON",
+      "chave_acesso": "RDOR3"
+    },
+    {
+      "nome": "Fleury ON",
+      "chave_acesso": "FLRY3"
+    },
+    {
+      "nome": "Johnson & Johnson",
+      "chave_acesso": "JNJ"
+    },
+    {
+      "nome": "UnitedHealth Group Inc.",
+      "chave_acesso": "UNH"
+    },
+    {
+      "nome": "Pfizer Inc.",
+      "chave_acesso": "PFE"
+    },
+    {
+      "nome": "Merck & Co. Inc.",
+      "chave_acesso": "MRK"
+    },
+    {
+      "nome": "Eli Lilly and Company",
+      "chave_acesso": "LLY"
+    },
+    {
+      "nome": "AbbVie Inc.",
+      "chave_acesso": "ABBV"
+    },
+    {
+      "nome": "Amgen Inc.",
+      "chave_acesso": "AMGN"
+    },
+    {
+      "nome": "Gilead Sciences Inc.",
+      "chave_acesso": "GILD"
+    },
+    {
+      "nome": "Bristol Myers Squibb Company",
+      "chave_acesso": "BMY"
+    }
+  ],
+  "Industrial": [
+    {
+      "nome": "WEG ON",
+      "chave_acesso": "WEGE3"
+    },
+    {
+      "nome": "Embraer ON",
+      "chave_acesso": "EMBR3"
+    },
+    {
+      "nome": "Azul PN",
+      "chave_acesso": "AZUL4"
+    },
+    {
+      "nome": "Gol PN",
+      "chave_acesso": "GOLL4"
+    },
+    {
+      "nome": "Rumo ON",
+      "chave_acesso": "RAIL3"
+    },
+    {
+      "nome": "Tupy ON",
+      "chave_acesso": "TUPY3"
+    },
+    {
+      "nome": "Randon Implementos e Participações PN",
+      "chave_acesso": "RAPT4"
+    },
+    {
+      "nome": "Caterpillar Inc.",
+      "chave_acesso": "CAT"
+    },
+    {
+      "nome": "Honeywell International Inc.",
+      "chave_acesso": "HON"
+    },
+    {
+      "nome": "GE Aerospace",
+      "chave_acesso": "GE"
+    }
+  ],
+  "Materiais Básicos": [
+    {
+      "nome": "Vale ON",
+      "chave_acesso": "VALE3"
+    },
+    {
+      "nome": "Suzano ON",
+      "chave_acesso": "SUZB3"
+    },
+    {
+      "nome": "Klabin Units",
+      "chave_acesso": "KLBN11"
+    },
+    {
+      "nome": "Gerdau PN",
+      "chave_acesso": "GGBR4"
+    },
+    {
+      "nome": "CSN ON",
+      "chave_acesso": "CSNA3"
+    },
+    {
+      "nome": "CSN Mineração ON",
+      "chave_acesso": "CMIN3"
+    },
+    {
+      "nome": "Usiminas PNA",
+      "chave_acesso": "USIM5"
+    },
+    {
+      "nome": "Braskem PNA",
+      "chave_acesso": "BRKM5"
+    },
+    {
+      "nome": "Dexco ON",
+      "chave_acesso": "DXCO3"
+    }
+  ],
+  "Energia": [
+    {
+      "nome": "Petrobras PN",
+      "chave_acesso": "PETR4"
+    },
+    {
+      "nome": "Ultrapar ON",
+      "chave_acesso": "UGPA3"
+    },
+    {
+      "nome": "Vibra Energia ON",
+      "chave_acesso": "VBBR3"
+    },
+    {
+      "nome": "Prio ON",
+      "chave_acesso": "PRIO3"
+    },
+    {
+      "nome": "Eneva ON",
+      "chave_acesso": "ENEV3"
+    },
+    {
+      "nome": "Exxon Mobil Corporation",
+      "chave_acesso": "XOM"
+    },
+    {
+      "nome": "Chevron Corporation",
+      "chave_acesso": "CVX"
+    },
+    {
+      "nome": "Shell plc",
+      "chave_acesso": "SHEL"
+    }
+  ],
+  "Utilidades": [
+    {
+      "nome": "Eletrobras ON",
+      "chave_acesso": "ELET3"
+    },
+    {
+      "nome": "Copel PNB",
+      "chave_acesso": "CPLE6"
+    },
+    {
+      "nome": "CEMIG PN",
+      "chave_acesso": "CMIG4"
+    },
+    {
+      "nome": "Equatorial Energia ON",
+      "chave_acesso": "EQTL3"
+    },
+    {
+      "nome": "Taesa Units",
+      "chave_acesso": "TAEE11"
+    },
+    {
+      "nome": "Alupar Investimento Units",
+      "chave_acesso": "ALUP11"
+    },
+    {
+      "nome": "Sabesp ON",
+      "chave_acesso": "SBSP3"
+    }
+  ],
+  "Comunicações": [
+    {
+      "nome": "The Walt Disney Company",
+      "chave_acesso": "DIS"
+    },
+    {
+      "nome": "Netflix Inc.",
+      "chave_acesso": "NFLX"
+    },
+    {
+      "nome": "Verizon Communications Inc.",
+      "chave_acesso": "VZ"
+    }
+  ],
+  "Imobiliário": [
+    {
+      "nome": "Multiplan ON",
+      "chave_acesso": "MULT3"
+    },
+    {
+      "nome": "Cyrela ON",
+      "chave_acesso": "CYRE3"
+    },
+    {
+      "nome": "EZTEC ON",
+      "chave_acesso": "EZTC3"
+    },
+    {
+      "nome": "MRV Engenharia ON",
+      "chave_acesso": "MRVE3"
+    }
+  ]
+}
