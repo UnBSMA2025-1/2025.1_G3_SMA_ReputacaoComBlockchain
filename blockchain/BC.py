@@ -21,7 +21,7 @@ class Block:
         self.transactions = transactions
         self.timestamp = timestamp or datetime.now().timestamp()
         self.hash = self.calculate_hash()
-        self.capacity = 5  # Número máximo de transações por bloco
+        self.capacity = 9  # Número máximo de transações por bloco
         self.is_full = len(transactions) >= self.capacity
 
     def calculate_hash(self) -> str:
