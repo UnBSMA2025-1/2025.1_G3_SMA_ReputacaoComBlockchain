@@ -13,6 +13,8 @@ public class Main {
             Profile p = new ProfileImpl();
             p.setParameter(Profile.GUI, "true");
             ContainerController cc = rt.createMainContainer(p);
+            
+            cc.createNewAgent("InterfaceAgent", "StockMarket.InterfaceAgent", null).start();
 
             AgentController stock = cc.createNewAgent("Stock", "StockMarket.Stock", null);
             stock.start();
