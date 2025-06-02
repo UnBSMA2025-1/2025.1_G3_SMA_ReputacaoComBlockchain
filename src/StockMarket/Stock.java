@@ -14,7 +14,7 @@ import java.util.*;
 public class Stock extends Agent {
 
     private Map<String, Double> pricestable = new HashMap<>();
-    private List<String> availableActions = new ArrayList<>(Arrays.asList("BBDC3", "AZUL4", "PETR4", "VALE3")); 
+    private List<String> availableActions = new ArrayList<>(Arrays.asList("PETR3", "PETR4", "VALE3", "ITUB4", "BBDC4", "BBAS3", "ABEV3", "WEGE3", "PRIO3", "RADL3", "LREN3", "HAPV3", "SUZB3", "KLAB11", "VIVT3", "CYRE3", "GGBR4", "CMIG4", "ELET3", "ELET6", "ITSA4", "ENGI11", "EGIE3", "KLBN11", "MGLU3", "B3SA3", "BBSE3", "BPAC11", "CVCB3", "GOAU4", "FLRY3", "COGN3", "EZTC3", "SLCE3", "RAIL3", "HYPE3", "CSNA3", "USIM5", "MRVE3", "CPFE3", "TAEE11", "EQTL3", "CCRO3", "RDOR3", "SULA11", "IRBR3", "BRKM5", "QUAL3", "CXSE3", "PSSA3", "PCAR3", "KLBN4", "BBDC3", "ITUB3", "SANB11", "RENT3", "ALPA4", "NTCO3", "GMAT3", "AZUL4", "GOLL4", "EMBR3", "BEEF3", "BRFS3", "SEER3", "YDUQ3", "CRFB3", "MILS3", "CASH3", "LINX3", "LWSA3", "STBP3", "GRND3", "GRUP3", "VAMO3", "DASA3", "BLAU3", "ARZZ3", "CPLA3", "PARD3", "ENBR3", "CPLE6", "TIET11", "SBSP3", "SANEPAR4", "MRFG3", "HGTX3", "SOMM3", "OMGE3", "AERI3", "MBLY3", "LIGT3", "TOTS3", "CLSC4", "TGMA3", "VIVA3", "CEAB3", "BPAN4", "PINE4", "GETT3")); 
     private Random random = new Random();
 
     protected void setup() {
