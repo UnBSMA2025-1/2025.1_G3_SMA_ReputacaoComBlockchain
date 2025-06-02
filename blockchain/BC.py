@@ -346,7 +346,7 @@ class BlockchainClient:
             transaction_id: ID da transação
         
         Retorna:
-            True se a transação existe, False caso contrário
+            True se a transação existe, False se não
         """
         self.command_queue.put(("CHECK_TRANSACTION", transaction_id))
         response = self.response_queue.get()
@@ -437,7 +437,7 @@ def main():
     command_queue = Queue()
     response_queue = Queue()
     
-    # Iniciar o agente da blockchain com persistência em arquivo
+    # Iniciar o agente da blockchain com arquivo
     blockchain_agent = BlockchainAgent(command_queue, response_queue, blockchain_file)
     blockchain_agent.start()
     
@@ -449,7 +449,7 @@ def main():
     is_valid = client.validate_chain()
     print(f"Blockchain válida: {'Sim' if is_valid else 'Não'}")
     
-    # Adicionar algumas transações de exemplo
+    # Adicionar umas transações de exemplo
     print("\nAdicionando transações de exemplo...")
     
     # Transação 1: Investidor 1001 compra PETR4 via Corretora 2001
