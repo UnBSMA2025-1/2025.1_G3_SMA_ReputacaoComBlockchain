@@ -31,6 +31,7 @@ Cumprido os pré-requisitos,abrimos em uma IDE a pasta raiz do projeto. A IDE de
 
 ## Participações
 |Nome do Membro | Contribuição | Significância da Contribuição para o Projeto (Excelente/Boa/Regular/Ruim/Nula) | Comprobatórios (Branchs)
+| -- | -- | -- | -- |
 | José  |  Programação dos agentes Broker,Investor e Stock;Configuração dos ambientes e integração geral do projeto | Boa | Main
 | Igor  |  Programação do algoritmo de reputação dos agentes e pesquisa bibliográfica necessária ao projeto| Boa | Igor
 | Camile  |  Programação de uma branch paralela de auxílio,do agente Banco Central e documentação | Boa | Camile
