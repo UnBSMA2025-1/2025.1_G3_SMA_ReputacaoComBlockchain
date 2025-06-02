@@ -3,7 +3,7 @@
 
 **Disciplina**: FGA0053 - Sistemas Multiagentes <br>
 **Nro do Grupo**: 03<br>
-**Frente de Pesquisa**: Reputação<br>
+**Frente de Pesquisa**: Bolsa de valores e Reputação<br>
 
 ## Alunos
 |Matrícula | Aluno |
@@ -22,6 +22,8 @@ O objetivo do grupo é desenvolver uma simulação inovadora da bolsa de valores
 **Tecnologias**: Eclipse, VScode,Maven e Jade.<br>
 **pré-requisitos**: Ter instalado o Java Development Kit (JDK), a Framework JADE e um gerenciador de dependências, a equipe usou o Maven. Configurações como adicionar os JARs do JADE ao CLASSPATH e declarar as dependências do JADE no seu arquivo de configuração. Utilizar uma boa IDE é opcional, mas Recomendado.
 
+## Screenshots
+---
 ## Uso 
 Cumprido os pré-requisitos,abrimos em uma IDE a pasta raiz do projeto. A IDE deve reconhecer a estrutura de um projeto Java e carregar as configurações(isso acontecerá se seu pacote JDK estiver devidamente instalado). Localize o documento `Main.java`: Este é o centro da simulação pois contém o código para iniciar o contêiner principal do JADE e instanciar os agentes (Broker e Investor). Projetos Java, para serem executados precisam de instruções específicas para a JVM(Maquína Virtual do Java). Essas instruções são argumentos e a maneiroa como você adiciona esses argumentos depende da iDE utilizada. Em Eclipse, você pode configurar "Run Configurations" para adicionar esses argumentos JVM. Em VS Code, isso pode ser feito no arquivo launch.json. Projetos JADE requerem argumentos específicos na linha de comando para configurar o ambiente do agente (por exemplo, -gui para iniciar a interface gráfica do JADE, ou -agents para especificar os agentes a serem criados no início). Um exemplo do projeto em questão seria "-gui -agents Broker:MinhaClasseAgente1;Investor:MinhaClasseAgente2;Stock:MinhaClasseAgente3;". Uma vez rodando, a simulação deve exibir logs no terminal ou, uma interface gráfica que mostra os agentes, suas mensagens e o estado do mercado, no caso do JADE GUI. Observe o comportamento dos agentes Broker e Investor e como suas decisões (baseadas em "reputação") afetam o mercado de ações simulado. Caso queira modificar o comportamento da simulação ou adicionar componentes edite os arquivos .java dos agentes e `Main.java` para ajustar os parâmetros iniciais da simulação.
 
