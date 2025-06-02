@@ -1,3 +1,5 @@
+#manter na branch do vitor
+
 import hashlib
 import json
 import os
@@ -6,7 +8,7 @@ from typing import List, Dict, Optional, Tuple
 from multiprocessing import Process, Queue
 
 class Block:
-    def __init__(self, index: int, previous_hash: str, transactions: List[Dict], timestamp: Optional[float] = None):
+    def __init__(self, index: int, previous_hash: str, transactions: List[Dict], timestamp: Optional[float] = None): 
         """
         Inicializa um novo bloco na blockchain de investimentos.
         
@@ -25,7 +27,8 @@ class Block:
         self.is_full = len(transactions) >= self.capacity
 
     def calculate_hash(self) -> str:
-        """Calcula o hash SHA-256 do bloco usando seus dados principais."""
+        #Calcula o hash SHA-256 do bloco usando seus dados principais
+        
         block_string = json.dumps({
             "index": self.index,
             "previous_hash": self.previous_hash,
@@ -235,7 +238,7 @@ class Blockchain:
         """Converte toda a blockchain para uma lista de dicionários."""
         return [block.to_dict() for block in self.chain]
 
-class BlockchainAgent(Process):
+class BlockchainAgent(Process):#inherits from "process"
     def __init__(self, command_queue: Queue, response_queue: Queue, storage_file: str = "blockchain_data.json"):
         """
         Agente que gerencia a blockchain e processa comandos assincronamente.
@@ -243,7 +246,7 @@ class BlockchainAgent(Process):
         Parâmetros:
             command_queue: Fila para receber comandos de outros agentes
             response_queue: Fila para enviar respostas
-            storage_file: Arquivo para persistência dos dados
+            storage_file: Arquivo para armazdenar dados lacais 
         """
         super().__init__()
         self.blockchain = Blockchain(storage_file)
@@ -252,9 +255,10 @@ class BlockchainAgent(Process):
         self.storage_file = storage_file
     
     def run(self):
-        """Loop principal do agente que processa comandos."""
+        #main loop do agente para os comandos
         print(f"BlockchainAgent iniciado com arquivo de armazenamento: {self.storage_file}")
         
+        #espera "command[0]" pra saber o q fazer, loop acaba no "SHUTDOWN" e tem uma erxception se der erro
         while True:
             try:
                 command = self.command_queue.get()
@@ -301,7 +305,7 @@ class BlockchainAgent(Process):
 class BlockchainClient:
     def __init__(self, command_queue: Queue, response_queue: Queue):
         """
-        Cliente para interagir com o BlockchainAgent de forma simplificada.
+        Cliente para interagir com o BlockchainAgent pra testar enquanto não implementa na Main
         
         Parâmetros:
             command_queue: Fila para enviar comandos ao agente
@@ -336,7 +340,7 @@ class BlockchainClient:
     
     def check_transaction_exists(self, transaction_id: str) -> bool:
         """
-        Verifica se uma transação existe na blockchain.
+        Verifica se uma transação existe na blockchain
         
         Parâmetros:
             transaction_id: ID da transação
@@ -350,7 +354,7 @@ class BlockchainClient:
     
     def get_investor_transactions(self, investor_id: str) -> List[Dict]:
         """
-        Obtém todas as transações de um investidor ordenadas por data (mais recente primeiro).
+        Obtém todas as transações de um investidor ordenadas por data (mais recente primeiro)
         
         Parâmetros:
             investor_id: ID do investidor

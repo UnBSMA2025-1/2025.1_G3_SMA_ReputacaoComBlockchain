@@ -1,0 +1,135 @@
+[
+  {
+    "index": 0,
+    "previous_hash": "0",
+    "hash": "0a06c9e4d96c227b6a7f1aefb8ff6e45d5afc1af79e927e0349caa847b96cb16",
+    "transactions": [
+      {
+        "type": "genesis",
+        "message": "Bloco inicial da blockchain de investimentos",
+        "timestamp": 1748877725.482259
+      },
+      {
+        "transaction_id": "tx_1748877725.733193",
+        "investor_id": "inv1001",
+        "broker_id": "bro2001",
+        "stock_symbol": "PETR4",
+        "quantity": 150,
+        "price": 32.75,
+        "type": "buy",
+        "timestamp": 1748877725.733214
+      },
+      {
+        "transaction_id": "tx_1748877725.736069",
+        "investor_id": "inv1002",
+        "broker_id": "bro2002",
+        "stock_symbol": "VALE3",
+        "quantity": 80,
+        "price": 67.2,
+        "type": "sell",
+        "timestamp": 1748877725.73609
+      },
+      {
+        "transaction_id": "tx_1748877725.738892",
+        "investor_id": "inv1001",
+        "broker_id": "bro2001",
+        "stock_symbol": "ITUB4",
+        "quantity": 200,
+        "price": 22.9,
+        "type": "buy",
+        "timestamp": 1748877725.738914
+      },
+      {
+        "transaction_id": "tx_1748877911.573798",
+        "investor_id": "inv1001",
+        "broker_id": "bro2001",
+        "stock_symbol": "PETR4",
+        "quantity": 150,
+        "price": 32.75,
+        "type": "buy",
+        "timestamp": 1748877911.573829
+      },
+      {
+        "transaction_id": "tx_1748877911.5759",
+        "investor_id": "inv1002",
+        "broker_id": "bro2002",
+        "stock_symbol": "VALE3",
+        "quantity": 80,
+        "price": 67.2,
+        "type": "sell",
+        "timestamp": 1748877911.575915
+      },
+      {
+        "transaction_id": "tx_1748877911.577972",
+        "investor_id": "inv1001",
+        "broker_id": "bro2001",
+        "stock_symbol": "ITUB4",
+        "quantity": 200,
+        "price": 22.9,
+        "type": "buy",
+        "timestamp": 1748877911.577982
+      },
+      {
+        "transaction_id": "tx_1748877918.499166",
+        "investor_id": "inv1001",
+        "broker_id": "bro2001",
+        "stock_symbol": "PETR4",
+        "quantity": 150,
+        "price": 32.75,
+        "type": "buy",
+        "timestamp": 1748877918.499202
+      },
+      {
+        "transaction_id": "tx_1748877918.502104",
+        "investor_id": "inv1002",
+        "broker_id": "bro2002",
+        "stock_symbol": "VALE3",
+        "quantity": 80,
+        "price": 67.2,
+        "type": "sell",
+        "timestamp": 1748877918.502124
+      }
+    ],
+    "timestamp": 1748877725.482534,
+    "is_full": true
+  },
+  {
+    "index": 1,
+    "previous_hash": "0a06c9e4d96c227b6a7f1aefb8ff6e45d5afc1af79e927e0349caa847b96cb16",
+    "hash": "fe27510dcef69200f0750bb565d61046ea37652ffd29c28a831bf4f86075e098",
+    "transactions": [
+      {
+        "transaction_id": "tx_1748878027.324496",
+        "investor_id": "inv1001",
+        "broker_id": "bro2001",
+        "stock_symbol": "PETR4",
+        "quantity": 150,
+        "price": 32.75,
+        "type": "buy",
+        "timestamp": 1748878027.32461
+      },
+      {
+        "transaction_id": "tx_1748878027.328356",
+        "investor_id": "inv1002",
+        "broker_id": "bro2002",
+        "stock_symbol": "VALE3",
+        "quantity": 80,
+        "price": 67.2,
+        "type": "sell",
+        "timestamp": 1748878027.328375
+      },
+      {
+        "transaction_id": "tx_1748878027.332381",
+        "investor_id": "inv1001",
+        "broker_id": "bro2001",
+        "stock_symbol": "ITUB4",
+        "quantity": 200,
+        "price": 22.9,
+        "type": "buy",
+        "timestamp": 1748878027.332404
+      }
+    ],
+    "timestamp": 1748878027.324968,
+    "is_full": false
+  }
+]
