@@ -21,7 +21,7 @@ public class Investor extends Agent {
     private List<AID> agentsBrokers = new ArrayList<>(); 
     private Random random = new Random();
     private int days = 0;
-    private String[] actions = {"BBDC3","AZUL4","PETR4","VALE3"}; 
+    private String[] actions = {"PETR3", "PETR4", "VALE3", "ITUB4", "BBDC4", "BBAS3", "ABEV3", "WEGE3", "PRIO3", "RADL3", "LREN3", "HAPV3", "SUZB3", "KLAB11", "VIVT3", "CYRE3", "GGBR4", "CMIG4", "ELET3", "ELET6", "ITSA4", "ENGI11", "EGIE3", "KLBN11", "MGLU3", "B3SA3", "BBSE3", "BPAC11", "CVCB3", "GOAU4", "FLRY3", "COGN3", "EZTC3", "SLCE3", "RAIL3", "HYPE3"}; 
     private int noBroker = 0;
     
  

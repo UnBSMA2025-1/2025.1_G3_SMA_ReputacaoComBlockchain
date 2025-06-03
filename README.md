@@ -17,7 +17,16 @@
 O objetivo do grupo é desenvolver uma simulação inovadora da bolsa de valores brasileira empregando sistemas multiagentes.Cada agente representa um participante do mercado e o comportamento desses agentes é um elemento central do nosso trabalho, eles tomarão decisões de investimento e negociação baseadas em um sistema de reputação. Isso significa que as interações e o desempenho passado de cada agente influenciarão suas estratégias futuras, criando um modelo realista e adaptativo do mercado financeiro.
 
 ## Screenshots
----
+**Tela do Console**
+![img.png](Console.png)
+
+**Tela do Jade**
+![img.png](Jade.png)
+
+
+**Tela do Sniffer
+![img.png](Sniffer.png)
+
 
 ## Instalação 
 **Linguagens**: Java<br>
@@ -79,3 +88,4 @@ git clone https://github.com/UnBSMA2025-1/2025.1_G3_SMA_ReputacaoComBlockchain.g
 - CORRẼA DA SILVA,André. Guia de instalação JADE(Jade Agente DEvelopment) no sistema operacional Linux.2024.9. Projeto de pesquisa – Universidade 
 - INSTITUTO DE CIÊNCIA E TECNOLOGIA (Itália). JADE: Java Agent Development Framework. [S. l.]: Telecom Italia Labs, [s.d.]. Disponível em: http://jade.tilab.com/. Acesso em: 2 jun. 2025.de Brasília, Faculdade do Gama, 2025.
 -B3 S.A. – BRASIL, BOLSA, BALCÃO. [S. l.]: B3, [s.d.]. Disponível em: http://www.b3.com.br. Acesso em: 2 jun. 2025.
+
