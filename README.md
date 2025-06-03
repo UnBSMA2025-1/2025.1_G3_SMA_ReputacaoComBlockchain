@@ -62,9 +62,9 @@ git clone https://github.com/UnBSMA2025-1/2025.1_G3_SMA_ReputacaoComBlockchain.g
 
 ## Vídeo
 
-![Video de Apresentação Geral](https://youtu.be/kL7w0UY8gmI)
+[Video de Apresentação Geral](https://youtu.be/kL7w0UY8gmI)
 
-![Video de Apresentação da Blockchain](https://youtu.be/SyaohfRhaF0)
+[Video de Apresentação da Blockchain](https://youtu.be/SyaohfRhaF0)
 
 ## Participações
 |Nome do Membro | Contribuição | Significância da Contribuição para o Projeto (Excelente/Boa/Regular/Ruim/Nula) | Comprobatórios (Branchs)
