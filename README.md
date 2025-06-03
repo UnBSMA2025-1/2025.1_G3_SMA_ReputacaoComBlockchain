@@ -17,14 +17,19 @@
 O objetivo do grupo é desenvolver uma simulação inovadora da bolsa de valores brasileira empregando sistemas multiagentes.Cada agente representa um participante do mercado e o comportamento desses agentes é um elemento central do nosso trabalho, eles tomarão decisões de investimento e negociação baseadas em um sistema de reputação. Isso significa que as interações e o desempenho passado de cada agente influenciarão suas estratégias futuras, criando um modelo realista e adaptativo do mercado financeiro.
 
 ## Screenshots
-**Tela do Console**
+### Tela do Console
+
+
 ![img.png](Console.png)
 
-**Tela do Jade**
+### Tela do Jade
+
 ![img.png](Jade.png)
 
 
-**Tela do Sniffer
+### Tela do Sniffer
+
+
 ![img.png](Sniffer.png)
 
 
@@ -56,7 +61,10 @@ git clone https://github.com/UnBSMA2025-1/2025.1_G3_SMA_ReputacaoComBlockchain.g
 3 - Rodar a Main do projeto, ao fazer isso, os agentes serão estanciados e a plataforma Jade aberta.
 
 ## Vídeo
----
+
+![Video de Apresentação Geral](https://youtu.be/kL7w0UY8gmI)
+
+![Video de Apresentação da Blockchain](https://youtu.be/SyaohfRhaF0)
 
 ## Participações
 |Nome do Membro | Contribuição | Significância da Contribuição para o Projeto (Excelente/Boa/Regular/Ruim/Nula) | Comprobatórios (Branchs)
@@ -83,9 +91,11 @@ git clone https://github.com/UnBSMA2025-1/2025.1_G3_SMA_ReputacaoComBlockchain.g
  
 ## Trabalhos Futuros 
  - Planejamos otimizar a performance, implementar modelos de comportamento de agentes mais complexos, expandir o modelo de mercado com mais fatores reais edesenvolver uma visualização aprimorada.
+ - Planejamos implementar a blockchain com o restante do codigo.
 
 ## Fontes
 - CORRẼA DA SILVA,André. Guia de instalação JADE(Jade Agente DEvelopment) no sistema operacional Linux.2024.9. Projeto de pesquisa – Universidade 
 - INSTITUTO DE CIÊNCIA E TECNOLOGIA (Itália). JADE: Java Agent Development Framework. [S. l.]: Telecom Italia Labs, [s.d.]. Disponível em: http://jade.tilab.com/. Acesso em: 2 jun. 2025.de Brasília, Faculdade do Gama, 2025.
 -B3 S.A. – BRASIL, BOLSA, BALCÃO. [S. l.]: B3, [s.d.]. Disponível em: http://www.b3.com.br. Acesso em: 2 jun. 2025.
+- LUSSANGE,Johann;LAZAREVICH,Ivan;BOURGEOIS-GIRONDE,Sacha;PALMINTERI,Stefano;GUTKIN,Boris.Modelling stock markets by multi-agent reinforcement learning.Cognitive Neurodynamics,v.15,n.6,p.115-147,2020.
 
