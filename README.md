@@ -53,10 +53,10 @@ git clone https://github.com/UnBSMA2025-1/2025.1_G3_SMA_ReputacaoComBlockchain.g
 2 - Adicionar bibliotecas do jade 
 
   - Caso seja o Eclipe:
-    a) Botão direito em cima do projeto
-    b) Build Path 
-    c) Add External Archives 
-    d) Selecionar Jade.jar`
+   - a) Botão direito em cima do projeto
+   - b) Build Path 
+   - c) Add External Archives 
+   - d) Selecionar Jade.jar`
 
 3 - Rodar a Main do projeto, ao fazer isso, os agentes serão estanciados e a plataforma Jade aberta.
 
